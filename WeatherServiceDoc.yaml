@@ -1,0 +1,247 @@
+swagger: '2.0'
+info:
+  description: |2-
+     A RESTful web service which talks to a 3rd party weather service .
+    It exposes APIs to get weather by city, country and by polar coordinates.
+  version: '1.0'
+  title: 'Weather Service '
+  license: {}
+host: 'localhost:8080'
+basePath: /weatherService
+tags:
+  - name: Weather Information
+    description: REST APIs for current weather information
+paths:
+  /weatherInfo/fetchByCityAndCountryCode:
+    get:
+      tags:
+        - Weather Information
+      summary: fetch weather information by city and ISO 3166 country code
+      operationId: fetchByCityAndCountryCodeUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: city
+          in: query
+          description: city
+          required: true
+          type: string
+        - name: countryCode
+          in: query
+          description: countryCode
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/WeatherInfoDto'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+  /weatherInfo/fetchByLatitudeLongtitude:
+    get:
+      tags:
+        - Weather Information
+      summary: fetch weather information by polar coordinates
+      operationId: fetchByLatitudeAndLongtitudeUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: latitude
+          in: query
+          description: latitude
+          required: true
+          type: number
+          format: double
+        - name: longtitude
+          in: query
+          description: longtitude
+          required: true
+          type: number
+          format: double
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/WeatherInfoDto'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+definitions:
+  Weather:
+    type: object
+    properties:
+      description:
+        type: string
+        description: Weather condition within the group (String)
+      icon:
+        type: string
+        description: Weather icon id (String)
+      id:
+        type: integer
+        format: int32
+        description: ' Weather condition id '
+      main:
+        type: string
+        description: 'Group of weather parameters (Rain, Snow, Extreme etc.)'
+  Coord:
+    type: object
+    properties:
+      lat:
+        type: number
+        format: double
+        description: 'City geo location, latitude'
+      lon:
+        type: number
+        format: double
+        description: 'City geo location, longitude '
+  Wind:
+    type: object
+    properties:
+      deg:
+        type: integer
+        format: int32
+        description: ' Wind direction  '
+      gust:
+        type: number
+        format: double
+        description: ' Wind gust  '
+      speed:
+        type: number
+        format: double
+        description: ' Wind speed '
+  Rain:
+    type: object
+    properties:
+      1h:
+        type: number
+        format: double
+        description: ' Rain volume '
+  Clouds:
+    type: object
+    properties:
+      all:
+        type: integer
+        format: int32
+        description: 'Cloudiness % '
+  Snow:
+    type: object
+    properties:
+      1h:
+        type: number
+        format: double
+        description: ' Snow volume '
+  WeatherInfoDto:
+    type: object
+    properties:
+      base:
+        type: string
+        description: ' Internal paramter'
+      clouds:
+        $ref: '#/definitions/Clouds'
+      cod:
+        type: integer
+        format: int32
+        description: ' Code '
+      coord:
+        description: ' Coordinates '
+        $ref: '#/definitions/Coord'
+      dt:
+        type: integer
+        format: int32
+        description: ' Time of data calculation  '
+      id:
+        type: integer
+        format: int32
+      main:
+        $ref: '#/definitions/Main'
+      name:
+        type: string
+      rain:
+        $ref: '#/definitions/Rain'
+      snow:
+        $ref: '#/definitions/Snow'
+      sys:
+        $ref: '#/definitions/Sys'
+      timezone:
+        type: integer
+        format: int32
+      visibility:
+        type: integer
+        format: int32
+        description: ' Visibility meter '
+      weather:
+        type: array
+        description: ' Weather Information'
+        items:
+          $ref: '#/definitions/Weather'
+      wind:
+        $ref: '#/definitions/Wind'
+  Sys:
+    type: object
+    properties:
+      country:
+        type: string
+        description: ' Country Code  (String)'
+      id:
+        type: integer
+        format: int32
+        description: ' Internal parameter (Integer)'
+      sunrise:
+        type: integer
+        format: int32
+        description: ' Sunrise  time  '
+      sunset:
+        type: integer
+        format: int32
+        description: ' Sunset  time '
+      type:
+        type: integer
+        format: int32
+        description: ' Internal parameter (Integer)'
+  Main:
+    type: object
+    properties:
+      feels_like:
+        type: number
+        format: double
+        description: 'Temperature feels like '
+      humidity:
+        type: integer
+        format: int32
+        description: 'Humidity % '
+      pressure:
+        type: integer
+        format: int32
+        description: 'Atmospheric pressure '
+      temp:
+        type: number
+        format: double
+        description: 'Temperature unit '
+      temp_max:
+        type: number
+        format: double
+        description: 'Maximum Temperature '
+      temp_min:
+        type: number
+        format: double
+        description: 'Minimum temperature '
