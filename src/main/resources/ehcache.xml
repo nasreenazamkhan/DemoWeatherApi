@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns='http://www.ehcache.org/v3'>
+    <cache alias="infoByCity">
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>java.lang.Object</value-type>
+        <expiry>
+            <ttl unit="minutes">120</ttl>
+        </expiry>
+        <resources>
+            <heap>1000</heap>
+        </resources>
+    </cache>
+    <cache alias="infoByCoordinates">
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>java.lang.Object</value-type>
+        <expiry>
+            <ttl unit="minutes">120</ttl>
+        </expiry>
+        <resources>
+            <heap>1000</heap>
+        </resources>
+    </cache>
+</config>
