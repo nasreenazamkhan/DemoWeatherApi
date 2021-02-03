@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Created by Nasreen Azam Khan on 01/01/2021
+ */
 @RestController
 @RequestMapping("/weatherInfo")
 @Api( description = "REST APIs for current weather information", tags = { "Weather Information" })

@@ -18,7 +18,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
 
-
+/**
+ * Created by Nasreen Azam Khan on 01/01/2021
+ */
 @Service("weatherInfoService")
 @Slf4j
 public class WeatherInfoServiceImpl implements WeatherInfoService {
@@ -43,19 +45,16 @@ public class WeatherInfoServiceImpl implements WeatherInfoService {
         restTemplate = restTemplateBuilder.build();
     }
 
-
+    /**
+     * This method fetches weather information by city name and country code (ISO 3166)
+     * @param  city city name
+     * @param  countryCode ISO 3166 country code
+     * @return WeatherInfoDto
+     */
     @Override
     @Cacheable(value = "infoByCity")
     public WeatherInfoDto fetchByCityAndCountryCode(String city, String countryCode) {
-        System.out.println("Entered ******");
         String reqUuid = UUID.randomUUID().toString().substring(0, 8);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("actionTypeReq", "fetchByCityAndCountryCode_req");
-        headers.set("actionTypeRes", "fetchByCityAndCountryCode_res");
-        headers.set("reqUuid", reqUuid);
-        HttpEntity entity = new HttpEntity(headers);
-
         String cityNameParam = city + "," + countryCode;
         final String baseUrl = requestUrl + "?q=" + cityNameParam + "&appid=" + apiId;
         commonLoggingService.logRequest(reqUuid, "fetchByCityAndCountryCode_req", baseUrl);
@@ -67,21 +66,22 @@ public class WeatherInfoServiceImpl implements WeatherInfoService {
 
     }
 
+    /**
+     * This method fetches weather information by polar cordinates
+     * @param  lat latitude of location
+     * @param  longtitude longtitude of location
+     * @return WeatherInfoDto
+     */
     @Override
     @Cacheable(value = "infoByCoordinates")
     public WeatherInfoDto fetchByLatitudeAndLongtitude(double lat, double longtitude) {
         String reqUuid = UUID.randomUUID().toString().substring(0, 8);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("actionTypeReq", "fetchByLatitudeAndLongtitude_req");
-        headers.set("actionTypeRes", "fetchByLatitudeAndLongtitude_res");
-        headers.set("reqUuid", reqUuid);
-
-        HttpEntity entity = new HttpEntity(headers);
         final String baseUrl = requestUrl + "?lat=" + lat + "&lon=" + longtitude + "&appid=" + apiId;
+        //logging the request
         commonLoggingService.logRequest(reqUuid, "fetchByLatitudeAndLongtitude_req", baseUrl);
         ResponseEntity<WeatherInfoDto> result = restTemplate.getForEntity(baseUrl, WeatherInfoDto.class);
         WeatherInfoDto weatherInfo = result.getBody();
+        //logging the response
         commonLoggingService.logResponse(reqUuid, "fetchByLatitudeAndLongtitude_res", weatherInfo);
         return weatherInfo;
 

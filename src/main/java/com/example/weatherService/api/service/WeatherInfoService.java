@@ -2,15 +2,15 @@ package com.example.weatherService.api.service;
 
 
 import com.example.weatherService.api.dto.WeatherInfoDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.http.ResponseEntity;
 
-import java.net.URISyntaxException;
 
+/**
+ * Created by Nasreen Azam Khan on 01/01/2021
+ */
 public interface WeatherInfoService {
 
 
-    WeatherInfoDto fetchByCityAndCountryCode(String city, String countryCode) ;
+    WeatherInfoDto fetchByCityAndCountryCode(String city, String countryCode);
 
-    WeatherInfoDto fetchByLatitudeAndLongtitude(double lat, double longtitude) ;
+    WeatherInfoDto fetchByLatitudeAndLongtitude(double lat, double longtitude);
 }

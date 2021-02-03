@@ -1,6 +1,8 @@
 package com.example.weatherService.api.service;
 
-
+/**
+ * Created by Nasreen Azam Khan on 01/01/2021
+ */
 public interface CommonLoggingService {
 
 
