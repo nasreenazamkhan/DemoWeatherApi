@@ -44,6 +44,15 @@ public class WeatherServiceControllerTest {
 
     }
 
+    @Test
+    public void fetchByLatitudeAndLongtitude_success() {
+        Double latitude = 40.6530190;
+        Double longtitude = -73.9659271;
+        ResponseEntity<WeatherInfoDto> responseEntity =
+                testRestTemplate
+                        .getForEntity("/weatherInfo/fetchByLatitudeLongtitude?latitude="+latitude +"&longtitude=" +longtitude , WeatherInfoDto.class);
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
+    }
 
 }
