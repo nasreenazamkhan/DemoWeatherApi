@@ -19,15 +19,12 @@ import org.springframework.web.WebApplicationInitializer;
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableCaching
 @Slf4j
-public class WeatherServiceApplication extends SpringBootServletInitializer implements WebApplicationInitializer {
+public class WeatherServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WeatherServiceApplication.class, args);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(WeatherServiceApplication.class);
-    }
+
 }
 
