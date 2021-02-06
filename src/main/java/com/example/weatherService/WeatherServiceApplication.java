@@ -16,7 +16,6 @@ import org.springframework.web.WebApplicationInitializer;
  * Created by Nasreen Azam Khan on 01/01/2021
  */
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableCaching
 @Slf4j
 public class WeatherServiceApplication {
